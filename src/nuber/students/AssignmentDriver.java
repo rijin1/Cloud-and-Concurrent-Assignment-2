@@ -20,7 +20,15 @@ public class AssignmentDriver {
 		 * This driver has a number of different sections that you can uncomment as you progress through the assignment
 		 * Once you have completed all parts, you should be able to run this entire function uncommented successfully
 		 */
+		
+		
+		//Person a = new Person("rijin",21);
+		
+		//System.out.println("name of the person is here:" + a.name);
+		//System.out.println("name of the person is here:" + a.maxSleep);
 
+		
+		
 		Passenger testPassenger = new Passenger("Alex", 100);
 
 		Driver testDriver = new Driver("Barbara", 100);

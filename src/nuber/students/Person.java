@@ -13,6 +13,14 @@ public abstract class Person
 		this.name = name;
 		this.maxSleep = maxSleep;
 	}
+	// setting a getter method
+	public String getName() {
+		return name;
+	}
+	
+	public int getMaxSleep() {
+		return maxSleep;
+	}
 	
 	public static String getRandomName()
 	{
@@ -23,4 +31,6 @@ public abstract class Person
 
 	
 	//testing it here
+	
+
 }
