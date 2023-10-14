@@ -18,6 +18,8 @@ public abstract class Person
 		return name;
 	}
 	
+	
+	
 	public int getMaxSleep() {
 		return maxSleep;
 	}

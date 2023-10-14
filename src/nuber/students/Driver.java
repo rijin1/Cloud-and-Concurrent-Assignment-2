@@ -1,10 +1,13 @@
 package nuber.students;
 
 public class Driver extends Person {
-
+	
+	//private string driverName;
 	
 	public Driver(String driverName, int maxSleep)
 	{
+		super(driverName, maxSleep);
+		
 	}
 	
 	/**
