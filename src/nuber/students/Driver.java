@@ -2,6 +2,7 @@
 
 public class Driver extends Person {
 	
+	private Passenger ongoingPassenger;
 	//private string driverName;
 	
 	public Driver(String driverName, int maxSleep)
@@ -17,8 +18,11 @@ public class Driver extends Person {
 	 * @param newPassenger Passenger to collect
 	 * @throws InterruptedException
 	 */
-	public void pickUpPassenger(Passenger newPassenger)
+	public void pickUpPassenger(Passenger newPassenger) throws InterruptedException 
 	{
+		ongoingPassenger=newPassenger;
+		int sleep=(int) (Math.random()*(getMaxSleep()+1));
+		Thread.sleep(sleep);
 	}
 
 	/**
