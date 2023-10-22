@@ -21,16 +21,23 @@ public class AssignmentDriver {
 		 * Once you have completed all parts, you should be able to run this entire function uncommented successfully
 		 */
 		
-		
-		//Person a = new Person("rijin",21);
-		
-		//System.out.println("name of the person is here:" + a.name);
-		//System.out.println("name of the person is here:" + a.maxSleep);
-
+		/*
+		Person testperson = new Person("Alexis", 21);
+		//testing person class 
+		System.out.println("name of the person is here:" + testperson.getName());
+		System.out.println(" person's maxsleep:" + testperson.getMaxSleep());
+		*/
 		
 		
 		Passenger testPassenger = new Passenger("Alex", 100);
+		//testing it 
+		System.out.println("name of the person is here and their travel time:" + testPassenger.getName() + testPassenger.getTravelTime());
+		System.out.println("name of the person chosen here is :" + testPassenger.getRandomName());
 
+		
+	
+
+	/*	
 		Driver testDriver = new Driver("Barbara", 100);
 		try {
 			//should store the passenger, and then sleep the thread for as long as the driver's random timeout takes
@@ -40,7 +47,8 @@ public class AssignmentDriver {
 			testDriver.driveToDestination();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
+	 
 		
 		//test creating a dispatch object
 		NuberDispatch dispatch = new NuberDispatch(testRegions, logEvents);
@@ -72,11 +80,12 @@ public class AssignmentDriver {
 		regions.put("North", 50);
 		regions.put("South", 50);
 		
-		//new Simulation(regions, 1, 10, 1000, logEvents);
-		//new Simulation(regions, 5, 10, 1000, logEvents);
-		//new Simulation(regions, 10, 10, 1000, logEvents);
-		//new Simulation(regions, 10, 100, 1000, logEvents);
-		//new Simulation(regions, 1, 50, 1000, logEvents);
+		new Simulation(regions, 1, 10, 1000, logEvents);
+		new Simulation(regions, 5, 10, 1000, logEvents);
+		new Simulation(regions, 10, 10, 1000, logEvents);
+		new Simulation(regions, 10, 100, 1000, logEvents);
+		new Simulation(regions, 1, 50, 1000, logEvents);
+	*/	
 	}
 
 }
