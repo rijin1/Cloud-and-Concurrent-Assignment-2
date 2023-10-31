@@ -33,7 +33,7 @@ public class NuberRegion {
 	{
 		this.dispatch = dispatch;
 		this.regionName = regionName;
-		this.maxSimultaneousJobs=maxSimultaneousJobs;
+		this.maxSimultaneousJobs = maxSimultaneousJobs;
 	}
 	
 	/**

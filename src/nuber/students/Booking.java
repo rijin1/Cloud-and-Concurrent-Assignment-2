@@ -21,6 +21,10 @@ package nuber.students;
 public class Booking {
 
 		
+	
+	private NuberDispatch dispatch;
+	private Passenger passenger;
+	private Driver driver;
 	/**
 	 * Creates a new booking for a given Nuber dispatch and passenger, noting that no
 	 * driver is provided as it will depend on whether one is available when the region 
@@ -31,6 +35,9 @@ public class Booking {
 	 */
 	public Booking(NuberDispatch dispatch, Passenger passenger)
 	{
+		this.dispatch = dispatch;
+		this.passenger = passenger;
+		
 	}
 	
 	/**
@@ -43,7 +50,7 @@ public class Booking {
 	 * 4.	It must then call the Driver.driveToDestination() function, with the thread pausing 
 	 * 			whilst as function is called.
 	 * 5.	Once at the destination, the time is recorded, so we know the total trip duration. 
-	 * 6.	The driver, now free, is added back into Dispatch’s list of available drivers. 
+	 * 6.	The driver, now free, is added back into Dispatchï¿½s list of available drivers. 
 	 * 7.	The call() function the returns a BookingResult object, passing in the appropriate 
 	 * 			information required in the BookingResult constructor.
 	 *
@@ -66,6 +73,9 @@ public class Booking {
 	@Override
 	public String toString()
 	{
+		//String bookingID = String.valueOf(bookingID);
+		return bookingID + ":" + passenger.getName() + driver.getName();
+		
 	}
 
 }
