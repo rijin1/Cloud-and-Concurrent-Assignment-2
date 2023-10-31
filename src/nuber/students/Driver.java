@@ -31,7 +31,11 @@ public class Driver extends Person {
 	 * 
 	 * @throws InterruptedException
 	 */
-	public void driveToDestination() {
+	public void driveToDestination() throws InterruptedException {
+		
+		int travelDuration = ongoingPassenger.getTravelTime();
+		Thread.sleep(travelDuration);
+		
 	}
 	
 }
