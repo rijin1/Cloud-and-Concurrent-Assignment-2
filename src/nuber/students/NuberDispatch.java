@@ -1,6 +1,8 @@
 package nuber.students;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.Future;
 
 /**
@@ -20,6 +22,9 @@ public class NuberDispatch {
 
 	private HashMap<String, Integer> regionInfo;
 	
+	//testing this
+	private Queue <Driver> inactiveDrivers = new LinkedList<>();
+	
 	/**
 	 * Creates a new dispatch objects and instantiates the required regions and any other objects required.
 	 * It should be able to handle a variable number of regions based on the HashMap provided.
@@ -33,6 +38,8 @@ public class NuberDispatch {
 		this.regionInfo=regionInfo;
 	}
 	
+	
+	
 	/**
 	 * Adds drivers to a queue of idle driver.
 	 *  
@@ -41,8 +48,14 @@ public class NuberDispatch {
 	 * @param The driver to add to the queue.
 	 * @return Returns true if driver was added to the queue
 	 */
-	public boolean addDriver(Driver newDriver)
+	public synchronized boolean addDriver(Driver newDriver)
 	{
+		
+		if (inactiveDrivers.add(newDriver)) {
+			return true  ;
+		}
+		return true;
+		
 	}
 	
 	/**
