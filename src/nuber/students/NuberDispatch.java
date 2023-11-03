@@ -23,7 +23,7 @@ public class NuberDispatch {
 	private HashMap<String, Integer> regionInfo;
 	
 	//testing this
-	private Queue <Driver> inactiveDrivers = new LinkedList<>();
+//	private Queue <Driver> inactiveDrivers = new LinkedList<>();
 	
 	/**
 	 * Creates a new dispatch objects and instantiates the required regions and any other objects required.
