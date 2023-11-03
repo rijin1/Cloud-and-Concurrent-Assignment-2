@@ -61,9 +61,18 @@ public class NuberDispatch {
 	{
 		
 		if (inactiveDrivers.add(newDriver)) {
-			return true  ;
+			notifyAll() ;
+	
+			return true;
+		}else {
+			try {
+				
+				Thread.sleep(60);
+			}catch(InterruptedException e){
+				Thread.currentThread().interrupt();
+			}
 		}
-		return true;
+		return false;
 		
 	}
 	
