@@ -1,8 +1,9 @@
 package nuber.students;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Future;
 
 /**
@@ -22,8 +23,14 @@ public class NuberDispatch {
 
 	private HashMap<String, Integer> regionInfo;
 	
+	
+	
 	//testing this
 //	private Queue <Driver> inactiveDrivers = new LinkedList<>();
+	
+	private BlockingQueue<Driver> inactiveDrivers;
+	
+	
 	
 	/**
 	 * Creates a new dispatch objects and instantiates the required regions and any other objects required.
@@ -34,8 +41,10 @@ public class NuberDispatch {
 	 */
 	public NuberDispatch(HashMap<String, Integer> regionInfo, boolean logEvents)
 	{
-		this.logEvents=logEvents;
-		this.regionInfo=regionInfo;
+		this.logEvents = logEvents;
+		this.regionInfo = regionInfo;
+		
+		this.inactiveDrivers = new ArrayBlockingQueue<>(MAX_DRIVERS);
 	}
 	
 	
