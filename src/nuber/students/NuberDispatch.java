@@ -117,6 +117,14 @@ public class NuberDispatch {
 	 * @return returns a Future<BookingResult> object
 	 */
 	public Future<BookingResult> bookPassenger(Passenger passenger, String region) {
+		
+		if("shutdown".equals(region)) {
+		
+			return null;
+		}
+		return null;
+		
+		getBookingsAwaitingDriver++;
 	}
 
 	/**
