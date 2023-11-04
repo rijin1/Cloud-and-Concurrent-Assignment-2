@@ -1,9 +1,11 @@
 package nuber.students;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -23,7 +25,7 @@ public class NuberDispatch {
 
 	private HashMap<String, Integer> regionInfo;
 	
-	
+	  private Map<String, NuberRegion> regions = new HashMap<>();
 	
 	//testing this
 //	private Queue <Driver> inactiveDrivers = new LinkedList<>();
@@ -47,6 +49,12 @@ public class NuberDispatch {
 		this.regionInfo = regionInfo;
 		
 		this.inactiveDrivers = new ArrayBlockingQueue<>(MAX_DRIVERS);
+		
+		
+	   
+
+		
+		
 	}
 	
 	
@@ -119,18 +127,11 @@ public class NuberDispatch {
 	 * @return returns a Future<BookingResult> object
 	 */
 	public Future<BookingResult> bookPassenger(Passenger passenger, String region) {
-		
-		if("shutdown".equals(region)) {
-		
-			return null;
-		}
-		
-		
-		int bookingIncreased = getBookingsAwaitingDriver();
-		bookingIncreased++;
-		
-		
+	    return regions.get(region).bookPassenger(passenger);
 	}
+
+
+
 
 	/**
 	 * Gets the number of non-completed bookings that are awaiting a driver from dispatch
