@@ -1,6 +1,9 @@
 package nuber.students;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
@@ -26,6 +29,9 @@ public class NuberRegion {
 	
 	//test
 	private int totalCount = 0;
+	int cores= Runtime.getRuntime().availableProcessors();
+	private Executor executor;
+	
 	
 	/**
 	 * Creates a new Nuber region
@@ -39,6 +45,7 @@ public class NuberRegion {
 		this.dispatch = dispatch;
 		this.regionName = regionName;
 		this.maxSimultaneousJobs = maxSimultaneousJobs;
+		this.executor= Executors.newFixedThreadPool(cores);
 	}
 	
 	/**
@@ -77,9 +84,9 @@ public class NuberRegion {
 	/**
 	 * Called by dispatch to tell the region to complete its existing bookings and stop accepting any new bookings
 	 */
-	public void shutdown()
+	public synchronized void shutdown()
 	{
-		
+		((ExecutorService) executor).shutdown();
 		
 	}
 
