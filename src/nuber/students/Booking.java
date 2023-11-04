@@ -1,5 +1,7 @@
 package nuber.students;
 
+import java.util.concurrent.Callable;
+
 /**
  * 
  * Booking represents the overall "job" for a passenger getting to their destination.
@@ -18,7 +20,7 @@ package nuber.students;
  * @author james
  *
  */
-public class Booking {
+public class Booking implements Callable<BookingResult> {
 
 		
 	

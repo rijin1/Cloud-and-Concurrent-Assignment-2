@@ -1,5 +1,6 @@
 package nuber.students;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -53,10 +54,25 @@ public class NuberRegion {
 	 */
 	public Future<BookingResult> bookPassenger(Passenger waitingPassenger)
 	{
-		//test it out 
-		return null;		
+		//testing it all out might have to make changes  
+		CompletableFuture<BookingResult> future = new CompletableFuture<>();
 		
-	}
+		Thread bookingThread = new Thread(() -> {
+			try {
+		
+				Booking booking = new Booking(dispatch,waitingPassenger);
+				BookingResult result = booking.call();
+				future.complete(result);
+		}catch(Exception e)
+		{
+			future.completeExceptionally(e);
+		}
+		
+		
+	});
+		bookingThread.start();
+		return future;			//testing it all out 
+}
 	
 	/**
 	 * Called by dispatch to tell the region to complete its existing bookings and stop accepting any new bookings
