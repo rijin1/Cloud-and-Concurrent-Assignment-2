@@ -30,6 +30,8 @@ public class NuberDispatch {
 	
 	private BlockingQueue<Driver> inactiveDrivers;
 	
+
+	
 	
 	
 	/**
@@ -122,9 +124,12 @@ public class NuberDispatch {
 		
 			return null;
 		}
-		return null;
 		
-		getBookingsAwaitingDriver++;
+		
+		int bookingIncreased = getBookingsAwaitingDriver();
+		bookingIncreased++;
+		
+		
 	}
 
 	/**
