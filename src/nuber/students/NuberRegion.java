@@ -79,6 +79,8 @@ public class NuberRegion {
 	 */
 	public void shutdown()
 	{
+		
+		
 	}
 
 	public int pendingBookings() {
