@@ -32,6 +32,8 @@ public class NuberDispatch {
 	
 	private BlockingQueue<Driver> inactiveDrivers;
 	
+	private int totalBookings = 0;
+	
 
 	
 	
@@ -142,7 +144,16 @@ public class NuberDispatch {
 	 */
 	public int getBookingsAwaitingDriver()
 	{
+		
+		int total = 0;
+		for(NuberRegion region: regions.values()) {
+			total += region.pendingBookings();
+		}
+		
+		return total;
 	}
+	
+	
 	
 	/**
 	 * Tells all regions to finish existing bookings already allocated, and stop accepting new bookings

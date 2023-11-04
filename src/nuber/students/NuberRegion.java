@@ -22,6 +22,10 @@ public class NuberRegion {
 	public String regionName;
 	private NuberDispatch dispatch;
 	private int maxSimultaneousJobs;
+	
+	//test
+	private int totalCount = 0;
+	
 	/**
 	 * Creates a new Nuber region
 	 * 
@@ -59,6 +63,11 @@ public class NuberRegion {
 	 */
 	public void shutdown()
 	{
+	}
+
+	public int pendingBookings() {
+		// TODO Auto-generated method stub
+		return totalCount;
 	}
 		
 }
