@@ -26,17 +26,29 @@ public class Simulation {
 		long start = new Date().getTime();
 		
 		//print some space in the console
-		System.out.println("\n\n\n");
-
+		System.out.println("new Simulation(regions, " + maxDrivers + ", " + maxPassengers + ", " + maxSleep + ", " + logEvents + ");");
+		//System.out.println("Creating Nuber Dispatch");
 		//store a queue of all current bookings as Future's that will eventually give us back a BookingResult object
 		Queue<Future<BookingResult>> bookings = new LinkedList<Future<BookingResult>>();
 
 		//convert the region names from the regions map into an array
+		//test         
+
 		String[] regionNames = regions.keySet().toArray(new String[0]);
 
 		//create a new dispatch object
 		NuberDispatch dispatch = new NuberDispatch(regions, logEvents);
+		//System.out.println("Creating " + regionNames.length + " regions");
+		
+		//testing
+	/*	
+        for (String regionName : regionNames) {
+            System.out.println("Creating Nuber region for " + regionName);
+            NuberRegion region = new NuberRegion(dispatch, regionName, regions.get(regionName));
+        }
 
+        System.out.println("Done creating " + regionNames.length + " regions");
+*/
 		// create drivers that are available for jobs
 		for (int i = 0; i < maxDrivers; i++) {
 			Driver d = new Driver("D-" + Person.getRandomName(), maxSleep);
@@ -45,7 +57,8 @@ public class Simulation {
 
 		// create passengers
 		for (int i = 0; i < maxPassengers; i++) {
-			
+			//String passengerName = "P-" + Person.getRandomName();
+			//System.out.println(i + ":null:null: Creating booking");
 			Passenger p = new Passenger("P-" + Person.getRandomName(), maxSleep);
 			
 			//choose a random region to assign this person

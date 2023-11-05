@@ -68,44 +68,33 @@ public class Booking implements Callable<BookingResult> {
 	 * @return A BookingResult containing the final information about the booking 
 	 */
 	public BookingResult call() {
-		try {
-				Driver driver = dispatch.getDriver();
-				
-				if(driver != null) {
-					driver.pickUpPassenger(passenger);
-					
-					Thread.sleep(100);
-					
-				driver.driveToDestination();	
-				
-				Thread.sleep(100);
-			
+		 try {
+	            dispatch.logEvent(this, "Creating booking");
+	             driver = dispatch.getDriver();
 
-	           long startTime = System.currentTimeMillis();
-	            // Assuming that driving to the destination and recording the time takes some time
-
-	            // Simulate a delay for the driver to reach the destination
-	            Thread.sleep(2000); // Adjust the duration as needed
-
-	            // Record the end time
-	            long endTime = System.currentTimeMillis();
-
-	            // Calculate the total trip duration
-	            long tripDuration = endTime - startTime;
-
-	            // Step 6: Add the driver back into Dispatch's list of available drivers
-	            dispatch.addDriver(driver);
-
-	            // Step 7: Return a BookingResult with appropriate information
-	            return new BookingResult(ID, passenger, driver, tripDuration);
-	        } else {
-	            // No available driver
-	            return new BookingResult(ID, passenger, null, 0);
+	            // If a driver is available, start the booking
+	            if (driver != null) {
+	                dispatch.logEvent(this, "Starting booking, getting driver");
+	                driver.pickUpPassenger(passenger);
+	                Thread.sleep(1000); // Simulate time
+	                dispatch.logEvent(this, "Starting, on way to passenger");
+	                driver.driveToDestination();
+	                Thread.sleep(1000); // Simulate time
+	                long startTime = System.currentTimeMillis();
+	                Thread.sleep(2000); // Simulate journey time
+	                long tripDuration = System.currentTimeMillis() - startTime;
+	                dispatch.logEvent(this, "At destination, driver is now free");
+	                dispatch.addDriver(driver);
+	                return new BookingResult(bokingID, passenger, driver, tripDuration);
+	            } else {
+	                // No available driver
+	                dispatch.logEvent(this, "Rejected booking");
+	                return new BookingResult(bokingID, passenger, null, 0);
+	            }
+	        } catch (InterruptedException e) {
+	            Thread.currentThread().interrupt();
+	            return null; // Handle the exception as needed
 	        }
-		} catch (InterruptedException e) {
-	        Thread.currentThread().interrupt();
-	        return null; // Handle the exception as needed
-	    }
 
 	}
 	
@@ -122,8 +111,8 @@ public class Booking implements Callable<BookingResult> {
 	@Override
 	public String toString()
 	{
-		String driverName = (driver != null) ? driver.getName() : "null";
-	    String passengerName = (passenger != null) ? passenger.getName() : "null";
+		String driverName = (driver != null) ? driver.name : "null";
+	    String passengerName = (passenger != null) ? passenger.name : "null";
 	    return String.format("%d:%s:%s", bokingID, driverName, passengerName);
 	}
 		

@@ -70,6 +70,7 @@ public class NuberRegion {
 				Booking booking = new Booking(dispatch,waitingPassenger);
 				BookingResult result = booking.call();
 				future.complete(result);
+				dispatch.completeBooking();
 		}catch(Exception e)
 		{
 			future.completeExceptionally(e);

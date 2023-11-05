@@ -23,7 +23,7 @@ public class NuberDispatch {
 
 	private HashMap<String, Integer> regionInfo;
 	
-	  private Map<String, NuberRegion> regions = new HashMap<>();
+	private Map<String, NuberRegion> regions = new HashMap<>();
 	
 	//testing this
 //	private Queue <Driver> inactiveDrivers = new LinkedList<>();
@@ -32,7 +32,9 @@ public class NuberDispatch {
 	
 	private int totalBookings = 0;
 	
+	private int totalPendingBookings = 0;
 
+	private boolean shutdown = false;
 	
 	
 	
@@ -50,7 +52,12 @@ public class NuberDispatch {
 		
 		this.inactiveDrivers = new ArrayBlockingQueue<>(MAX_DRIVERS);
 		
-		
+		 for (Map.Entry<String, Integer> entry : regionInfo.entrySet()) {
+	            String regionName = entry.getKey();
+	            int maxSimultaneousJobs = entry.getValue();
+	            NuberRegion region = new NuberRegion(this, regionName, maxSimultaneousJobs);
+	            regions.put(regionName, region);
+	        }
 	   
 
 		
@@ -70,11 +77,18 @@ public class NuberDispatch {
 	public synchronized boolean addDriver(Driver newDriver)
 	{
 		
-		if (inactiveDrivers.add(newDriver)) {
+		if (inactiveDrivers.offer(newDriver)) {
 			notifyAll() ;
-	
+			
+			
 			return true;
-		}else {
+		}
+		
+		return false;
+	}
+		
+	/*	
+		else {
 			try {
 				
 				Thread.sleep(60);
@@ -83,8 +97,8 @@ public class NuberDispatch {
 			}
 		}
 		return false;
-		
-	}
+	*/	
+	
 	
 	/**
 	 * Gets a driver from the front of the queue
@@ -93,9 +107,16 @@ public class NuberDispatch {
 	 * 
 	 * @return A driver that has been removed from the queue
 	 */
-	public Driver getDriver() throws InterruptedException
+	public synchronized Driver getDriver() throws InterruptedException
 	{
-		return inactiveDrivers.remove();
+		while (inactiveDrivers.isEmpty()) {
+			
+			wait();
+			
+		}
+		notifyAll();
+		
+		return inactiveDrivers.poll();
 		
 	}
 
@@ -127,10 +148,45 @@ public class NuberDispatch {
 	 * @return returns a Future<BookingResult> object
 	 */
 	public Future<BookingResult> bookPassenger(Passenger passenger, String region) {
-	    return regions.get(region).bookPassenger(passenger);
+	  //  return regions.get(region).bookPassenger(passenger);
+	//}
+		  if (shutdown) {
+	            return null; // Return null if the dispatch has been shut down
+	        }
+
+	        NuberRegion nuberRegion = regions.get(region);
+	        if (nuberRegion != null) {
+	            Future<BookingResult> result = nuberRegion.bookPassenger(passenger);
+	            if (result != null) {
+	                totalPendingBookings++;
+	            }
+	            return result;
+	        } else {
+	            // Handle the case where the region doesn't exist
+	            // You can log an error or return an appropriate result.
+	            return null;
+	        }
 	}
+		
+		/*
+		  NuberRegion nuberRegion = regions.get(region);
+		    if (nuberRegion != null) {
+		    	Future<BookingResult> result = nuberRegion.bookPassenger(passenger);
+		        if (result != null) {
+		            totalPendingBookings++;
+		        }
+		        return result;
+		    } else {
+		        // Handle the case where the region doesn't exist
+		        // You can log an error or return an appropriate result.
+		        return null;
+		    }
+		} */
 
-
+	//test
+	public void completeBooking() {
+		totalPendingBookings --;
+	}
 
 
 	/**
@@ -157,11 +213,17 @@ public class NuberDispatch {
 	 * Tells all regions to finish existing bookings already allocated, and stop accepting new bookings
 	 */
 	public void shutdown() {
+		shutdown = true;
+        for (NuberRegion region : regions.values()) {
+            region.shutdown();
+        }
+    }
 		
+		/*
 		for (NuberRegion region : regions.values()) {
 			region.shutdown();
 		}
-		
-	}
+		*/
+	
 
 }

@@ -9,7 +9,7 @@ public class AssignmentDriver {
 
 		//turn this or off to enable/disable output from the dispatch's logEvent function
 		//use the logEvent function to print out debug output when required.
-		boolean logEvents = true;
+		boolean logEvents = false;
 		
 		HashMap<String, Integer> testRegions = new HashMap<String, Integer>();
 		testRegions.put("Test Region", 50);
@@ -31,8 +31,8 @@ public class AssignmentDriver {
 		
 		Passenger testPassenger = new Passenger("Alex", 100);
 		//testing it 
-		System.out.println("name of the person is here and their travel time:" + testPassenger.getName() + testPassenger.getTravelTime());
-		System.out.println("name of the person chosen here is :" + testPassenger.getRandomName());
+	//	System.out.println("name of the person is here and their travel time:" + testPassenger.getName() + testPassenger.getTravelTime());
+		//System.out.println("name of the person chosen here is :" + testPassenger.getRandomName());
 
 		
 	
@@ -80,10 +80,10 @@ public class AssignmentDriver {
 		regions.put("North", 50);
 		regions.put("South", 50);
 		
-		new Simulation(regions, 1, 10, 1000, logEvents);
-		new Simulation(regions, 5, 10, 1000, logEvents);
-		new Simulation(regions, 10, 10, 1000, logEvents);
-		new Simulation(regions, 10, 100, 1000, logEvents);
+		//new Simulation(regions, 1, 10, 1000, logEvents);
+		//new Simulation(regions, 5, 10, 1000, logEvents);
+		//new Simulation(regions, 10, 10, 1000, logEvents);
+		//new Simulation(regions, 10, 100, 1000, logEvents);
 		new Simulation(regions, 1, 50, 1000, logEvents);
 		
 	}
