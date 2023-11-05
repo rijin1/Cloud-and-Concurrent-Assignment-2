@@ -74,10 +74,10 @@ public class Booking implements Callable<BookingResult> {
 
 	            // If a driver is available, start the booking
 	            if (driver != null) {
-	                dispatch.logEvent(this, "Starting booking, getting driver");
+	                dispatch.logEvent(this, "Starting booking, getting the driver");
 	                driver.pickUpPassenger(passenger);
 	                Thread.sleep(1000); // Sleep for 1000ms 
-	                dispatch.logEvent(this, "Starting, on way to passenger");
+	                dispatch.logEvent(this, "Starting, on the way to passenger");
 	                driver.driveToDestination();
 	                Thread.sleep(1000); 
 	                long startTime = System.currentTimeMillis();
@@ -87,7 +87,7 @@ public class Booking implements Callable<BookingResult> {
 	                dispatch.addDriver(driver);
 	                return new BookingResult(bokingID, passenger, driver, tripDuration);
 	            } else {
-	                dispatch.logEvent(this, "waiting for ");
+	                dispatch.logEvent(this, "waiting for the driver");
 	                return new BookingResult(bokingID, passenger, null, 0);
 	            }
 	        } catch (InterruptedException e) {

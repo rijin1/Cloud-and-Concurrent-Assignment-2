@@ -63,7 +63,7 @@ public class NuberRegion {
 	{
 		//testing it all out might have to make changes  
 		CompletableFuture<BookingResult> future = new CompletableFuture<>();
-		// thread usig a lambda expression 
+		// thread using a lambda expression 
 		Thread bookingThread = new Thread(() -> {
 			try {
 				Booking booking = new Booking(dispatch,waitingPassenger);
