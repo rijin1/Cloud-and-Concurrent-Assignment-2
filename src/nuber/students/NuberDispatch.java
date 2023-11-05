@@ -148,8 +148,9 @@ public class NuberDispatch {
 	 * @return returns a Future<BookingResult> object
 	 */
 	public Future<BookingResult> bookPassenger(Passenger passenger, String region) {
-	  //  return regions.get(region).bookPassenger(passenger);
+		//return regions.get(region).bookPassenger(passenger);
 	//}
+		
 		  if (shutdown) {
 	            return null; // Return null if the dispatch has been shut down
 	        }
@@ -168,26 +169,14 @@ public class NuberDispatch {
 	        }
 	}
 		
-		/*
-		  NuberRegion nuberRegion = regions.get(region);
-		    if (nuberRegion != null) {
-		    	Future<BookingResult> result = nuberRegion.bookPassenger(passenger);
-		        if (result != null) {
-		            totalPendingBookings++;
-		        }
-		        return result;
-		    } else {
-		        // Handle the case where the region doesn't exist
-		        // You can log an error or return an appropriate result.
-		        return null;
-		    }
-		} */
+		
 
 	//test
-	public void completeBooking() {
+	public synchronized void completeBooking() {
+		if(totalPendingBookings > 0) {
 		totalPendingBookings --;
+		}
 	}
-
 
 	/**
 	 * Gets the number of non-completed bookings that are awaiting a driver from dispatch
@@ -207,8 +196,7 @@ public class NuberDispatch {
 		return total;
 	}
 	
-	
-	
+
 	/**
 	 * Tells all regions to finish existing bookings already allocated, and stop accepting new bookings
 	 */
