@@ -66,6 +66,7 @@ public class NuberRegion {
 		
 		Thread bookingThread = new Thread(() -> {
 			try {
+				
 		
 				Booking booking = new Booking(dispatch,waitingPassenger);
 				BookingResult result = booking.call();
