@@ -76,24 +76,23 @@ public class Booking implements Callable<BookingResult> {
 	            if (driver != null) {
 	                dispatch.logEvent(this, "Starting booking, getting driver");
 	                driver.pickUpPassenger(passenger);
-	                Thread.sleep(1000); // Simulate time
+	                Thread.sleep(1000); // Sleep for 1000ms 
 	                dispatch.logEvent(this, "Starting, on way to passenger");
 	                driver.driveToDestination();
-	                Thread.sleep(1000); // Simulate time
+	                Thread.sleep(1000); 
 	                long startTime = System.currentTimeMillis();
-	                Thread.sleep(2000); // Simulate journey time
+	                Thread.sleep(200); 
 	                long tripDuration = System.currentTimeMillis() - startTime;
 	                dispatch.logEvent(this, "At destination, driver is now free");
 	                dispatch.addDriver(driver);
 	                return new BookingResult(bokingID, passenger, driver, tripDuration);
 	            } else {
-	                // No available driver
-	                dispatch.logEvent(this, "Rejected booking");
+	                dispatch.logEvent(this, "waiting for ");
 	                return new BookingResult(bokingID, passenger, null, 0);
 	            }
 	        } catch (InterruptedException e) {
 	            Thread.currentThread().interrupt();
-	            return null; // Handle the exception as needed
+	            return null; 
 	        }
 
 	}
@@ -115,7 +114,8 @@ public class Booking implements Callable<BookingResult> {
 	    String passengerName = (passenger != null) ? passenger.name : "null";
 	    return String.format("%d:%s:%s", bokingID, driverName, passengerName);
 	}
-		
-	}
+
+}
+	
 
 

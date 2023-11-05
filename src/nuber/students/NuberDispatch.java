@@ -58,10 +58,6 @@ public class NuberDispatch {
 	            NuberRegion region = new NuberRegion(this, regionName, maxSimultaneousJobs);
 	            regions.put(regionName, region);
 	        }
-	   
-
-		
-		
 	}
 	
 	
@@ -87,17 +83,6 @@ public class NuberDispatch {
 		return false;
 	}
 		
-	/*	
-		else {
-			try {
-				
-				Thread.sleep(60);
-			}catch(InterruptedException e){
-				Thread.currentThread().interrupt();
-			}
-		}
-		return false;
-	*/	
 	
 	
 	/**
@@ -111,13 +96,10 @@ public class NuberDispatch {
 	{
 		while (inactiveDrivers.isEmpty()) {
 			
-			wait();
-			
+			wait();		
 		}
 		notifyAll();
-		
 		return inactiveDrivers.poll();
-		
 	}
 
 	/**
@@ -152,7 +134,7 @@ public class NuberDispatch {
 	//}
 		
 		  if (shutdown) {
-	            return null; // Return null if the dispatch has been shut down
+	            return null; // should Return null if the dispatch has been shut down
 	        }
 
 	        NuberRegion nuberRegion = regions.get(region);
@@ -164,7 +146,6 @@ public class NuberDispatch {
 	            return result;
 	        } else {
 	            // Handle the case where the region doesn't exist
-	            // You can log an error or return an appropriate result.
 	            return null;
 	        }
 	}
@@ -205,13 +186,10 @@ public class NuberDispatch {
         for (NuberRegion region : regions.values()) {
             region.shutdown();
         }
-    }
-		
+    }		
 		/*
 		for (NuberRegion region : regions.values()) {
 			region.shutdown();
 		}
 		*/
-	
-
 }

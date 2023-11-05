@@ -41,14 +41,7 @@ public class Simulation {
 		//System.out.println("Creating " + regionNames.length + " regions");
 		
 		//testing
-	/*	
-        for (String regionName : regionNames) {
-            System.out.println("Creating Nuber region for " + regionName);
-            NuberRegion region = new NuberRegion(dispatch, regionName, regions.get(regionName));
-        }
 
-        System.out.println("Done creating " + regionNames.length + " regions");
-*/
 		// create drivers that are available for jobs
 		for (int i = 0; i < maxDrivers; i++) {
 			Driver d = new Driver("D-" + Person.getRandomName(), maxSleep);
@@ -57,7 +50,6 @@ public class Simulation {
 
 		// create passengers
 		for (int i = 0; i < maxPassengers; i++) {
-			//String passengerName = "P-" + Person.getRandomName();
 			//System.out.println(i + ":null:null: Creating booking");
 			Passenger p = new Passenger("P-" + Person.getRandomName(), maxSleep);
 			

@@ -29,7 +29,7 @@ public class NuberRegion {
 	
 	//test
 	private int totalCount = 0;
-	int cores= Runtime.getRuntime().availableProcessors();
+	int cores= Runtime.getRuntime().availableProcessors(); //determine the cpu core 
 	private Executor executor;
 	
 	
@@ -63,11 +63,9 @@ public class NuberRegion {
 	{
 		//testing it all out might have to make changes  
 		CompletableFuture<BookingResult> future = new CompletableFuture<>();
-		
+		// thread usig a lambda expression 
 		Thread bookingThread = new Thread(() -> {
 			try {
-				
-		
 				Booking booking = new Booking(dispatch,waitingPassenger);
 				BookingResult result = booking.call();
 				future.complete(result);
@@ -76,19 +74,18 @@ public class NuberRegion {
 		{
 			future.completeExceptionally(e);
 		}
-		
-		
 	});
 		bookingThread.start();
 		return future;			//testing it all out 
-}
+	}
 	
 	/**
 	 * Called by dispatch to tell the region to complete its existing bookings and stop accepting any new bookings
 	 */
 	public synchronized void shutdown()
 	{
-		((ExecutorService) executor).shutdown();
+		((ExecutorService) executor).shutdown(); //executor.shutdown does not get implemented but rather putting a cast around it does the work 
+												// need to try another way as well on why's thats the case
 		
 	}
 
